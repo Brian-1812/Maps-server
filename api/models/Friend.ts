@@ -1,13 +1,39 @@
-import Sequelize from "sequelize";
-import { DataTypes } from "sequelize";
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+  NonAttribute,
+} from "sequelize";
 import sequelize from "../config/database";
 import User from "./User";
 
-const tableName = "Friend";
+const modelName = "Friend";
 
-const Friend = sequelize.define(
-  tableName,
+type statusType = "friend" | "pending" | "blocked";
+
+class Friend extends Model<
+  InferAttributes<Friend>,
+  InferCreationAttributes<Friend>
+> {
+  declare id: CreationOptional<number>;
+  declare status: statusType;
+  declare senderId: number;
+  declare receiverId: number;
+  declare sender: NonAttribute<User>;
+  declare receiver: NonAttribute<User>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+}
+
+Friend.init(
   {
+    id: {
+      type: DataTypes.NUMBER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     senderId: {
       type: DataTypes.INTEGER,
       references: {
@@ -23,24 +49,18 @@ const Friend = sequelize.define(
       },
     },
     status: {
-      type: Sequelize.ENUM,
+      type: DataTypes.ENUM,
       values: ["friend", "pending", "blocked"],
       defaultValue: "pending",
     },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   },
-  { tableName }
+  {
+    sequelize,
+    modelName,
+  }
 );
-
-// User.belongsToMany(User, {
-//   through: Friend,
-//   as: "sender",
-//   foreignKey: "senderId",
-// });
-// User.belongsToMany(User, {
-//   through: Friend,
-//   as: "receiver",
-//   foreignKey: "receiverId",
-// });
 
 User.hasMany(Friend, {
   foreignKey: "senderId",

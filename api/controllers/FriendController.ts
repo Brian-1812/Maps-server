@@ -26,6 +26,7 @@ export const create = async (req: RequestType, res: Response) => {
     const friend = await Friend.create({
       senderId,
       receiverId,
+      status: "pending",
     });
     if (friend) {
       return res.status(200).json({ friend });
@@ -81,14 +82,14 @@ export const findAll = async (_req: RequestType, res: Response) => {
 };
 
 export const usersFriends = async (req: RequestType, res: Response) => {
-  const { id: senderId, status } = req.query;
-  if (!senderId)
+  const { id, status } = req.query;
+  if (!id)
     return res.status(400).json({ msg: "Bad Request: User id not provided" });
   try {
     const friends = await Friend.findAll({
       where: {
-        senderId,
-        status: status ? status : "friend",
+        senderId: Number(id),
+        status: status ? status.toString() : "friend",
       },
       include: [
         {

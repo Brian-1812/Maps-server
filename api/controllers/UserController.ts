@@ -4,7 +4,7 @@ import User from "../models/User";
 import authService from "../services/auth.service";
 
 export const register = async (req: RequestType, res: Response) => {
-  const { displayname, phoneNumber, password, email, fullname } = req.body;
+  const { displayname, phoneNumber, password, email, fullName } = req.body;
   // Validate request
   if (!displayname || !phoneNumber || !password) {
     return res.status(400).json({
@@ -17,7 +17,7 @@ export const register = async (req: RequestType, res: Response) => {
       phoneNumber,
       password,
       email,
-      fullname,
+      fullName,
     });
     if (saved) {
       let token = authService.issue({
@@ -89,10 +89,9 @@ export const findOne = async (req: RequestType, res: Response) => {
 };
 
 export const update = async (req: RequestType, res: Response) => {
-  const { id } = req.query;
   try {
     const updateUser = await User.update(req.body, {
-      where: { id },
+      where: { id: Number(req.query.id) },
     });
     return res.status(200).json({
       msg: "User was updated successfully.",
@@ -120,7 +119,7 @@ export const destroy = async (req: RequestType, res: Response) => {
   const { id } = req.query;
   if (id) {
     try {
-      const user = await User.findByPk(id.toString());
+      const user = await User.findByPk(Number(id));
       if (user) {
         await user.destroy();
         return res.status(200).json({ msg: "Successfully deleted" });

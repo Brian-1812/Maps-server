@@ -52,7 +52,7 @@ export const update = async (req: RequestType, res: Response) => {
   const { id } = req.query;
   try {
     await Roadsign.update(req.body, {
-      where: { id },
+      where: { id: Number(id) },
     });
     return res.status(200).json({
       message: "Roadsign was updated successfully.",
