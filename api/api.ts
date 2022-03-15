@@ -2,17 +2,12 @@ import express from "express";
 import http from "http";
 import path from "path";
 import dotenv from "dotenv";
-//  import admin from 'firebase-admin';
+// env config
+dotenv.config({ path: `${path.resolve(__dirname, "..")}/.env` });
 
-import config from "../config/";
+import config from "./config";
 import dbService from "./services/db.service";
 
-//  admin.initializeApp({
-//    credential: admin.credential.applicationDefault(),
-//    storageBucket: 'assorty-5e694.appspot.com',
-//  });
-
-dotenv.config({ path: `${path.resolve(__dirname, "..")}/.env` });
 const environment = process.env.NODE_ENV;
 
 const app = express();

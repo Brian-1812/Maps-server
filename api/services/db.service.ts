@@ -1,4 +1,4 @@
-import database from "../../config/database";
+import database from "../config/database";
 
 const authenticateDB = () => database.authenticate();
 const dropDB = () => database.drop();

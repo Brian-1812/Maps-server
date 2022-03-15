@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "watch": "tsc -w",
-    "dev": "cross-env NODE_ENV=development nodemon dist/api/api.js",
-    "start": "node dist/api/api.js",
+    "dev": "nodemon dist/api/api.js",
+    "start": "node dist/api.js",
     "production": "cross-env NODE_ENV=production node dist/api/api.js"
   },
   "keywords": [],

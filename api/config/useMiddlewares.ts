@@ -1,10 +1,10 @@
 import { Application, json, urlencoded } from "express";
 import helmet from "helmet";
 import cors from "cors";
-import routes from "../api/routes";
-import auth from "../api/policies/auth.policy";
-import adminAuth from "../api/policies/admin.policy";
-import upload from "../api/services/upload.service";
+import routes from "../routes";
+import auth from "../policies/auth.policy";
+import adminAuth from "../policies/admin.policy";
+import upload from "../services/upload.service";
 
 const useMiddlewares = (app: Application) => {
   app.use(

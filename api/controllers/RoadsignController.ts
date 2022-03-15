@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { RequestType } from "../../types";
+import { RequestType } from "../types";
 import Roadsign from "../models/Roadsign";
 
 export const create = async (req: RequestType, res: Response) => {

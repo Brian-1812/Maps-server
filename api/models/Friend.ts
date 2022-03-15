@@ -1,6 +1,6 @@
 import Sequelize from "sequelize";
 import { DataTypes } from "sequelize";
-import sequelize from "../../config/database";
+import sequelize from "../config/database";
 import User from "./User";
 
 const tableName = "Friend";

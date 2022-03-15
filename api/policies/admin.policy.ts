@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { RequestType } from "../../types";
+import { RequestType } from "../types";
 import JWTService from "../services/auth.service";
 import User from "../models/User";
 

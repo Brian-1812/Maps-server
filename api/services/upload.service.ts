@@ -1,6 +1,6 @@
 import multer from "multer";
 import path from "path";
-import { RequestType } from "../../types";
+import { RequestType } from "../types";
 
 const imageFilter = (
   _req: RequestType,

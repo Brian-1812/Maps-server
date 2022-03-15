@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { RequestType } from "../../types";
+import { RequestType } from "../types";
 import User from "../models/User";
 import Friend from "../models/Friend";
 
