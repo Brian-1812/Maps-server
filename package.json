@@ -1,0 +1,52 @@
+{
+  "name": "sputnik-server",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "cross-env NODE_ENV=development nodemon dist/api/api.js",
+    "start": "node dist/api/api.js",
+    "production": "cross-env NODE_ENV=production node dist/api/api.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "core-js": "^2.6.9",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-routes-mapper": "^1.1.0",
+    "helmet": "^5.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.0",
+    "node-fetch": "^3.1.0",
+    "sequelize": "^6.6.5",
+    "socket.io": "^4.4.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/bluebird": "^3.5.36",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^17.0.21",
+    "@types/uuid": "^8.3.4",
+    "@types/validator": "^13.7.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.4",
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.15",
+    "shx": "^0.3.4",
+    "supertest": "^6.1.6",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
+  }
+}
