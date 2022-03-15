@@ -4,20 +4,26 @@ import User from "../models/User";
 import authService from "../services/auth.service";
 
 export const register = async (req: RequestType, res: Response) => {
-  const { displayname, phoneNumber } = req.body;
+  const { displayname, phoneNumber, password, email, fullname } = req.body;
   // Validate request
-  if (!displayname || !phoneNumber) {
+  if (!displayname || !phoneNumber || !password) {
     return res.status(400).json({
-      msg: "No details provided",
+      msg: "No details provide",
     });
   }
   try {
-    let saved = await User.create(req.body);
+    let saved: any = await User.create({
+      displayname,
+      phoneNumber,
+      password,
+      email,
+      fullname,
+    });
     if (saved) {
       let token = authService.issue({
-        // id: saved?.id,
-        // name: saved?.displayName,
-        // phoneNumber: saved?.phoneNumber,
+        id: saved?.id,
+        name: saved?.displayName,
+        phoneNumber: saved?.phoneNumber,
       });
       console.log("THIS IS A TOKEN", token);
       return res.status(200).json({ user: saved, token });
@@ -44,19 +50,22 @@ export const findAll = async (_req: RequestType, res: Response) => {
 
 export const findContacts = async (req: RequestType, res: Response) => {
   const { contacts } = req.body;
-  if (!contacts) return res.status(400).json({ msg: "No contacts provided" });
+  if (!contacts.length)
+    return res.status(400).json({ msg: "No contacts provided" });
   try {
     let availableUsers: Array<typeof User> = [];
     let nonUsers: Array<typeof User> = [];
-    const users = await User.findAll();
+    const users: Array<any> = await User.findAll();
     if (!users?.length)
       return res.status(500).json({ msg: "Internal server error" });
-    // for (let i = 0; i < contacts?.length; i++) {
-    // const phone = contacts[i];
-    // const user = await users.find((user) => user?.phoneNumber === phone);
-    // if (user) availableUsers.push(user);
-    // else nonUsers.push(phone);
-    // }
+    const promises = await contacts.forEach(async (contact: any) => {
+      const user = await users.find(
+        (user) => user.phoneNumber === contact.phoneNumber
+      );
+      if (user) availableUsers.push();
+      else nonUsers.push(user);
+    });
+    await Promise.all(promises);
     return res.status(200).json({ users: availableUsers, nonUsers });
   } catch (err) {
     console.log(err);
